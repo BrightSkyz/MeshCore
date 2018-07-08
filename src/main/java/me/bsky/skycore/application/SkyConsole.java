@@ -2,6 +2,7 @@ package me.bsky.skycore.application;
 
 import me.bsky.skycore.application.consoleCommands.endConsoleCommand;
 import me.bsky.skycore.application.consoleCommands.helpConsoleCommand;
+import me.bsky.skycore.application.consoleCommands.infoConsoleCommand;
 
 import java.io.Console;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ public class SkyConsole {
         this.skyApplication = skyApplication;
         registerCommand(new endConsoleCommand(this));
         registerCommand(new helpConsoleCommand(this));
+        registerCommand(new infoConsoleCommand(this));
     }
 
     public void startConsole() {
