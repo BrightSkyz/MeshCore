@@ -17,7 +17,8 @@ public class helpConsoleCommand extends SkyConsoleCommand {
         helpPages.put(0, Arrays.asList(
                 "help [page]: Displays the help",
                 "end: Stops SkyCore peacefully",
-                "info: Displays information about SkyCore"
+                "info: Displays information about SkyCore",
+                "sendcmd <server name> <command>: Send a command to the specified server"
         ));
     }
 

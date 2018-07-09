@@ -43,7 +43,7 @@ public abstract class SkyModule {
     public void onEnableBungee() {
         // Empty
     }
-        public void onDisableBungee() {
+    public void onDisableBungee() {
         // Empty
     }
 

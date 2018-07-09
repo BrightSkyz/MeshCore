@@ -5,17 +5,14 @@ import me.bsky.skycore.types.SkyServer;
 import me.bsky.skycore.types.enums.ProgramMode;
 import me.bsky.skycore.types.enums.ServerType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ServerManagerModule extends SkyModule {
 
-    private Map<String, SkyServer> serverMap = new HashMap<>();
-
     public ServerManagerModule(ProgramMode programMode, Object main) {
         super("serverManager", programMode, main);
+        if (programMode == ProgramMode.APPLICATION) {
+        }
     }
 
     @Override
@@ -26,27 +23,23 @@ public class ServerManagerModule extends SkyModule {
 
     @Override
     public void onDisableApplication() {
-        for (SkyServer skyServer : serverMap.values()) {
-            skyServer.stopServer();
-            removeServer(skyServer.getName());
+        for (Integer i = 0; i != getServers().size(); i++) {
+            getSkyApplication().getSkyServers().get(i).stopServer();
         }
     }
 
     public void createServer(String name, ServerType serverType, Boolean deleteOnStop, Integer port, Integer maxRam) {
         Integer finalPort = port;
         Integer finalMaxRam = maxRam;
-        if (serverMap == null || !serverMap.containsKey(name)) {
-            if (serverMap == null) {
-                serverMap = new HashMap<>();
-            }
+        if (getServer(name) == null) {
             getSkyLogger().info("The server " + name + " doesn't exist, continuing...");
             if (port == null) {
                 // Pick the lowest unused port between 25300 and 25500
-                if (serverMap.isEmpty()) {
+                if (getServers().isEmpty()) {
                     finalPort = 25300;
                 } else {
                     List<Integer> usedPorts = new ArrayList<>();
-                    for (SkyServer skyServer : serverMap.values()) {
+                    for (SkyServer skyServer : getServers()) {
                         usedPorts.add(skyServer.getPort());
                     }
                     boolean portFound = false;
@@ -63,8 +56,7 @@ public class ServerManagerModule extends SkyModule {
             if (maxRam == null) {
                 finalMaxRam = 768;
             }
-            SkyServer skyServer = new SkyServer(name, serverType, deleteOnStop, finalPort, finalMaxRam, this);
-            serverMap.put(name, skyServer);
+            new SkyServer(name, serverType, deleteOnStop, finalPort, finalMaxRam, this);
         } else {
             getSkyLogger().warn("The server " + name + " already exists.");
         }
@@ -72,13 +64,28 @@ public class ServerManagerModule extends SkyModule {
 
     public void removeServer(String name) {
         getSkyLogger().info("The server " + name + " is being removed...");
-        serverMap.remove(name);
+        for (SkyServer skyServer : getServers()) {
+            if (skyServer.getName().equalsIgnoreCase(name)) {
+                getSkyApplication().getSkyServers().remove(skyServer);
+                return;
+            }
+        }
     }
 
     public SkyServer getServer(String name) {
-        if (serverMap.containsKey(name)) {
-            return serverMap.get(name);
+        for (SkyServer skyServer : getServers()) {
+            if (skyServer.getName().equalsIgnoreCase(name)) {
+                return skyServer;
+            }
         }
         return null;
+    }
+
+    public List<SkyServer> getServers() {
+        if (getSkyApplication().getSkyServers() == null) {
+            return new ArrayList<>();
+        } else {
+            return getSkyApplication().getSkyServers();
+        }
     }
 }

@@ -26,6 +26,7 @@ public class SkyServer {
         this.deleteOnStop = deleteOnStop;
         this.port = port;
         this.maxRam = maxRam;
+        this.serverManagerModule = serverManagerModule;
         this.skyLogger = serverManagerModule.getSkyLogger();
         // Create the server
         skyLogger.info("Creating the server " + name + " (" + serverType.getCleanName() + ")");
@@ -38,6 +39,7 @@ public class SkyServer {
             serverDirectory.mkdir();
             startServer();
         }
+        getServerManagerModule().getServers().add(this);
     }
 
     private void copyConfigHelper(String pathInJar, String outputPath) {
@@ -123,32 +125,54 @@ public class SkyServer {
 
     public void sendCommand(String command) {
         getSkyLogger().info("A command has been sent to the server " + getName() + ": " + command);
-        PrintWriter printWriter = new PrintWriter(getServerProcess().getOutputStream());
+        //PrintWriter printWriter = new PrintWriter(getServerProcess().getOutputStream());
         try {
-            printWriter.write(command);
-            printWriter.write("\n");
-            printWriter.flush();
-            printWriter.close();
+            //printWriter.write(command + "\n");
+            //printWriter.println(command);
+            //printWriter.flush();
+            //printWriter.close();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(getServerProcess().getOutputStream()));
+            bufferedWriter.write(command);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void stopServer() {
-        getSkyLogger().info("The server " + getName() + " is stopping...");
-        sendCommand("stop");
-        while (serverProcess.isAlive()) {
-            getSkyLogger().debug("Process for " + getName() + " is still alive.");
-        }
-        serverProcess.destroy();
-        getServerManagerModule().removeServer(getName());
-        if (getDeleteOnStop()) {
-            getSkyLogger().info("The server " + getName() + " is set to delete on stop so it will.");
-            try {
-                FileUtils.deleteDirectory(new File("./servers/" + getName() + "/"));
-            } catch (Exception e) {
-                e.printStackTrace();
+        stopServer(false);
+    }
+
+    public void stopServer(boolean removeFromList) {
+        try {
+            getSkyLogger().info("The server " + getName() + " is stopping...");
+            sendCommand("stop");
+            boolean hasExited = false;
+            // Wait until the process has exited
+            while (!hasExited) {
+                try {
+                    if (getServerProcess().exitValue() == 0) {
+                        hasExited = true;
+                    }
+                } catch (Exception e) {
+                    // We're just going to ignore the error since it is caused by the process being alive
+                }
             }
+            getServerProcess().destroy();
+            if (getDeleteOnStop()) {
+                getSkyLogger().info("The server " + getName() + " is set to delete on stop so it will.");
+                try {
+                    FileUtils.deleteDirectory(new File("./servers/" + getName() + "/"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (removeFromList) {
+                getServerManagerModule().removeServer(getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

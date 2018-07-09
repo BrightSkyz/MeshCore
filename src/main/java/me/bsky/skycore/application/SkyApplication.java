@@ -2,16 +2,23 @@ package me.bsky.skycore.application;
 
 import me.bsky.skycore.types.SkyLogger;
 import me.bsky.skycore.types.SkyModule;
+import me.bsky.skycore.types.SkyServer;
 import me.bsky.skycore.types.enums.ProgramMode;
 import me.bsky.skycore.types.modules.servermanager.ServerManagerModule;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SkyApplication {
 
     private Map<String, SkyModule> moduleMap = new HashMap<>();
+
+    private List<SkyServer> skyServers = new ArrayList<>();
+
+    private ServerManagerModule serverManagerModule;
 
     private SkyLogger skyLogger = null;
     private SkyConsole skyConsole = null;
@@ -26,18 +33,18 @@ public class SkyApplication {
         // Setup: Create servers directory if it doesn't exists
         File serverDirectory = new File("./servers").getAbsoluteFile();
         if (serverDirectory.isDirectory()) {
-            skyLogger.info("Setup: The servers directory already exists so it won't be created.");
+            skyLogger.info("Setup: The servers directory already exist so it won't be created.");
         } else {
-            skyLogger.info("Setup: The servers directory doesn't exists, creating one...");
+            skyLogger.info("Setup: The servers directory doesn't exist, creating one...");
             serverDirectory.mkdir();
         }
 
         // Setup: Create date directory if it doesn't exists
         File dateDirectory = new File("./data").getAbsoluteFile();
         if (dateDirectory.isDirectory()) {
-            skyLogger.info("Setup: The data directory already exists so it won't be created.");
+            skyLogger.info("Setup: The data directory already exist so it won't be created.");
         } else {
-            skyLogger.info("Setup: The data directory doesn't exists, creating one...");
+            skyLogger.info("Setup: The data directory doesn't exist, creating one...");
             dateDirectory.mkdir();
         }
 
@@ -55,7 +62,8 @@ public class SkyApplication {
         skyConsole.startConsole();
 
         // Register the modules for the application
-        registerModule(new ServerManagerModule(ProgramMode.APPLICATION, this));
+        serverManagerModule = new ServerManagerModule(ProgramMode.APPLICATION, this);
+        registerModule(serverManagerModule);
 
         getSkyLogger().info("SkyCore has loaded.");
         getSkyLogger().info("Listening on this console for commands, type 'help' for help.");
@@ -76,5 +84,13 @@ public class SkyApplication {
 
     public SkyConsole getSkyConsole() {
         return skyConsole;
+    }
+
+    public ServerManagerModule getServerManagerModule() {
+        return serverManagerModule;
+    }
+
+    public List<SkyServer> getSkyServers() {
+        return skyServers;
     }
 }
