@@ -1,14 +1,9 @@
 package me.bsky.skycore.application;
 
-import me.bsky.skycore.application.consoleCommands.endConsoleCommand;
-import me.bsky.skycore.application.consoleCommands.helpConsoleCommand;
-import me.bsky.skycore.application.consoleCommands.infoConsoleCommand;
-import me.bsky.skycore.application.consoleCommands.sendcmdConsoleCommand;
+import me.bsky.skycore.application.consoleCommands.*;
 
 import java.io.Console;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SkyConsole {
 
@@ -16,6 +11,7 @@ public class SkyConsole {
     private Thread consoleThread;
 
     private Map<String, SkyConsoleCommand> commandMap = new HashMap<>();
+    private Map<String, String> commandHelpMap = new HashMap<>();
 
     public SkyConsole(SkyApplication skyApplication) {
         this.skyApplication = skyApplication;
@@ -23,6 +19,7 @@ public class SkyConsole {
         registerCommand(new helpConsoleCommand(this));
         registerCommand(new infoConsoleCommand(this));
         registerCommand(new sendcmdConsoleCommand(this));
+        registerCommand(new statsConsoleCommand(this));
     }
 
     public void startConsole() {
@@ -66,5 +63,13 @@ public class SkyConsole {
 
     public void registerCommand(SkyConsoleCommand skyConsoleCommand) {
         commandMap.put(skyConsoleCommand.getName(), skyConsoleCommand);
+    }
+
+    public Map<String, SkyConsoleCommand> getCommandMap() {
+        return commandMap;
+    }
+
+    public Map<String, String> getCommandHelpMap() {
+        return commandHelpMap;
     }
 }

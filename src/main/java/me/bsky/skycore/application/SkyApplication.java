@@ -4,6 +4,8 @@ import me.bsky.skycore.types.SkyLogger;
 import me.bsky.skycore.types.SkyModule;
 import me.bsky.skycore.types.SkyServer;
 import me.bsky.skycore.types.enums.ProgramMode;
+import me.bsky.skycore.types.interfaces.IBungeeManager;
+import me.bsky.skycore.types.modules.rmi.RmiModule;
 import me.bsky.skycore.types.modules.servermanager.ServerManagerModule;
 
 import java.io.File;
@@ -14,12 +16,13 @@ import java.util.Map;
 
 public class SkyApplication {
 
-    private Map<String, SkyModule> moduleMap = new HashMap<>();
-
     private List<SkyServer> skyServers = new ArrayList<>();
 
+    private Map<String, SkyModule> moduleMap = new HashMap<>();
+    private RmiModule rmiModule;
     private ServerManagerModule serverManagerModule;
 
+    private IBungeeManager remote = null;
     private SkyLogger skyLogger = null;
     private SkyConsole skyConsole = null;
 
@@ -62,6 +65,8 @@ public class SkyApplication {
         skyConsole.startConsole();
 
         // Register the modules for the application
+        rmiModule = new RmiModule(ProgramMode.APPLICATION, this);
+        registerModule(rmiModule);
         serverManagerModule = new ServerManagerModule(ProgramMode.APPLICATION, this);
         registerModule(serverManagerModule);
 
@@ -71,11 +76,32 @@ public class SkyApplication {
 
     private void registerModule(SkyModule skyModule) {
         // Register a module
+        getSkyLogger().info("Enabling the module " + skyModule.getModuleName());
         moduleMap.put(skyModule.getModuleName(), skyModule);
+    }
+
+    public List<SkyServer> getSkyServers() {
+        return skyServers;
     }
 
     public Map<String, SkyModule> getModuleMap() {
         return moduleMap;
+    }
+
+    public RmiModule getRmiModule() {
+        return rmiModule;
+    }
+
+    public ServerManagerModule getServerManagerModule() {
+        return serverManagerModule;
+    }
+
+    public IBungeeManager getRemote() {
+        return remote;
+    }
+
+    public void setRemote(IBungeeManager remote) {
+        this.remote = remote;
     }
 
     public SkyLogger getSkyLogger() {
@@ -86,11 +112,4 @@ public class SkyApplication {
         return skyConsole;
     }
 
-    public ServerManagerModule getServerManagerModule() {
-        return serverManagerModule;
-    }
-
-    public List<SkyServer> getSkyServers() {
-        return skyServers;
-    }
 }

@@ -1,0 +1,4 @@
+name: SkySpigot
+main: me.bsky.skycore.spigot.SkySpigot
+version: 0.0.0
+author: BrightSkyz

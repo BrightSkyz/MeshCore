@@ -1,0 +1,12 @@
+# SkyCore configuration file
+mysql:
+  host: 'localhost' # Database host (Default: localhost)
+  port: 3306 # Database port (Default: 3306)
+  user: '' # Database username (Default: none)
+  pass: '' # Database password (Default: none)
+  name: 'skycore' # Database name (Default: skycore)
+rmi:
+  host: 'localhost' # RMI host (Default: localhost)
+  port: 25689 # Default port is 25689
+  pass: '' # RMI password (Default: none, Note: Generate one on the site linked below to make sure it is secure)
+# https://passwordsgenerator.net/?length=32&symbols=1&numbers=1&lowercase=1&uppercase=1&similar=1&ambiguous=1&client=1&autoselect=0

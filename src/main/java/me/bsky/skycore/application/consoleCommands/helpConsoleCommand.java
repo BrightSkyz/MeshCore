@@ -3,22 +3,20 @@ package me.bsky.skycore.application.consoleCommands;
 import me.bsky.skycore.application.SkyConsole;
 import me.bsky.skycore.application.SkyConsoleCommand;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class helpConsoleCommand extends SkyConsoleCommand {
 
     private Map<Integer, List<String>> helpPages = new HashMap<>();
 
     public helpConsoleCommand(SkyConsole skyConsole) {
-        super("help", skyConsole);
+        super("help", "Display the help", skyConsole);
         helpPages.put(0, Arrays.asList(
                 "help [page]: Displays the help",
                 "end: Stops SkyCore peacefully",
                 "info: Displays information about SkyCore",
-                "sendcmd <server name> <command>: Send a command to the specified server"
+                "sendcmd <server name> <command>: Send a command to the specified server",
+                "stats: View quick stats"
         ));
     }
 

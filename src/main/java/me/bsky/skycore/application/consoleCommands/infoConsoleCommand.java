@@ -6,7 +6,7 @@ import me.bsky.skycore.application.SkyConsoleCommand;
 public class infoConsoleCommand extends SkyConsoleCommand {
 
     public infoConsoleCommand(SkyConsole skyConsole) {
-        super("info", skyConsole);
+        super("info", "View information about SkyCore", skyConsole);
     }
 
     @Override

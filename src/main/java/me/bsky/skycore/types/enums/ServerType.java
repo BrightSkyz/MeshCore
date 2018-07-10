@@ -4,8 +4,8 @@ public enum ServerType {
 
     BUNGEECORD("Bungeecord", "bungeecord.jar"),
     SPIGOT("Spigot", "spigot.jar"),
-    LOBBY("Spigot", "spigot.jar"),
-    MINI("Spigot", "spigot.jar");
+    LOBBY("Lobby", "spigot.jar"),
+    MINI("Mini", "spigot.jar");
 
     private String cleanName;
     private String jarName;

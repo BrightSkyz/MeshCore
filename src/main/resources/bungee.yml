@@ -1,0 +1,4 @@
+name: SkyBungee
+main: me.bsky.skycore.bungeecord.SkyBungee
+version: 0.0.0
+author: BrightSkyz

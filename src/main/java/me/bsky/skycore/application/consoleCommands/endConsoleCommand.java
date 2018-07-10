@@ -7,7 +7,7 @@ import me.bsky.skycore.types.SkyModule;
 public class endConsoleCommand extends SkyConsoleCommand {
 
     public endConsoleCommand(SkyConsole skyConsole) {
-        super("end", skyConsole);
+        super("end", "Stop SkyCore peacefully", skyConsole);
     }
 
     @Override

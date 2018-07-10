@@ -18,7 +18,7 @@ servers:
     address: localhost:12346
     restricted: false
 listeners:
-- query_port: 25577
+- query_port: {SERVER_PORT}
   motd: '&1Another Bungee server'
   priorities:
   - lobby

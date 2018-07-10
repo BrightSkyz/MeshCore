@@ -6,7 +6,7 @@ import me.bsky.skycore.application.SkyConsoleCommand;
 public class sendcmdConsoleCommand extends SkyConsoleCommand {
 
     public sendcmdConsoleCommand(SkyConsole skyConsole) {
-        super("sendcmd", skyConsole);
+        super("sendcmd", "Send a command to the specified server", skyConsole);
     }
 
     @Override

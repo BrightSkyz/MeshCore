@@ -17,8 +17,7 @@ public class ServerManagerModule extends SkyModule {
 
     @Override
     public void onEnableApplication() {
-        createServer("Test-1", ServerType.SPIGOT, false, 25565, null);
-        createServer("Test-2", ServerType.SPIGOT, true, null, null);
+        createServer("Bungeecord-1", ServerType.BUNGEECORD, true, 25565, 512);
     }
 
     @Override
@@ -28,11 +27,11 @@ public class ServerManagerModule extends SkyModule {
         }
     }
 
-    public void createServer(String name, ServerType serverType, Boolean deleteOnStop, Integer port, Integer maxRam) {
+    public void createServer(String serverName, ServerType serverType, Boolean deleteOnStop, Integer port, Integer maxRam) {
         Integer finalPort = port;
         Integer finalMaxRam = maxRam;
-        if (getServer(name) == null) {
-            getSkyLogger().info("The server " + name + " doesn't exist, continuing...");
+        if (getServer(serverName) == null) {
+            getSkyLogger().info("The server " + serverName + " doesn't exist, continuing...");
             if (port == null) {
                 // Pick the lowest unused port between 25300 and 25500
                 if (getServers().isEmpty()) {
@@ -56,25 +55,25 @@ public class ServerManagerModule extends SkyModule {
             if (maxRam == null) {
                 finalMaxRam = 768;
             }
-            new SkyServer(name, serverType, deleteOnStop, finalPort, finalMaxRam, this);
+            new SkyServer(serverName, serverType, deleteOnStop, finalPort, finalMaxRam, this);
         } else {
-            getSkyLogger().warn("The server " + name + " already exists.");
+            getSkyLogger().warn("The server " + serverName + " already exists.");
         }
     }
 
-    public void removeServer(String name) {
-        getSkyLogger().info("The server " + name + " is being removed...");
+    public void removeServer(String serverName) {
+        getSkyLogger().info("The server " + serverName + " is being removed...");
         for (SkyServer skyServer : getServers()) {
-            if (skyServer.getName().equalsIgnoreCase(name)) {
+            if (skyServer.getServerName().equalsIgnoreCase(serverName)) {
                 getSkyApplication().getSkyServers().remove(skyServer);
                 return;
             }
         }
     }
 
-    public SkyServer getServer(String name) {
+    public SkyServer getServer(String serverName) {
         for (SkyServer skyServer : getServers()) {
-            if (skyServer.getName().equalsIgnoreCase(name)) {
+            if (skyServer.getServerName().equalsIgnoreCase(serverName)) {
                 return skyServer;
             }
         }
