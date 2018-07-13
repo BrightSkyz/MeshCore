@@ -47,7 +47,7 @@ public class SkyBungee extends Plugin {
         // Setup remote connection to application
         try {
             remote = (IServerManager) Naming.lookup("rmi://" + getConfiguration().getString("rmi.host") + ":" + getConfiguration().getInt("rmi.port") + "/skycore");
-            boolean connectionTest = remote.testConnection(getConfiguration().getString("rmi.pass"), "a Bungeecord proxy");
+            boolean connectionTest = remote.testConnection(getConfiguration().getString("rmi.pass"), "Bungeecord");
             if (connectionTest) {
                 getSkyLogger().info("Connection to the RmiServerManager was successful.");
                 final Integer[] bungeePort = {0};
