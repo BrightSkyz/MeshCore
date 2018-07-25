@@ -1,4 +1,4 @@
-package me.bsky.skycore.types.enums;
+package me.bsky.skycore.api.enums;
 
 import org.bukkit.ChatColor;
 
