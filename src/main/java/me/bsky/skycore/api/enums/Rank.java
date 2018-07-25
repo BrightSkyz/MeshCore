@@ -4,18 +4,6 @@ import org.bukkit.ChatColor;
 
 public enum Rank {
 
-    BRIGHT(ChatColor.translateAlternateColorCodes('&', "&b[Bright]"), "Bright", ChatColor.AQUA, 13),
-
-    OWNER(ChatColor.translateAlternateColorCodes('&', "&c[Owner]"), "Owner", ChatColor.RED, 13),
-    CO_OWNER(ChatColor.translateAlternateColorCodes('&', "&c[Co-Owner]"), "Co-Owner", ChatColor.RED, 12),
-    DEV(ChatColor.translateAlternateColorCodes('&', "&c[Dev]"), "Developer", ChatColor.RED, 11),
-    ADMIN(ChatColor.translateAlternateColorCodes('&', "&c[Admin]"), "Admin", ChatColor.RED, 10),
-
-    BUILDER(ChatColor.translateAlternateColorCodes('&', "&9[Builder]"), "Builder", ChatColor.BLUE, 9),
-
-    MOD(ChatColor.translateAlternateColorCodes('&', "&3[Moderator]"), "Moderator", ChatColor.DARK_AQUA, 8),
-    HELPER(ChatColor.translateAlternateColorCodes('&', "&3[Helper]"), "Helper", ChatColor.DARK_AQUA, 7),
-
     TWITCH(ChatColor.translateAlternateColorCodes('&', "&d[Twitch]"), "Twitch", ChatColor.LIGHT_PURPLE, 6),
     YOUTUBE(ChatColor.translateAlternateColorCodes('&', "&c[You&fTube&c]"), "YouTube", ChatColor.RED, 5),
 

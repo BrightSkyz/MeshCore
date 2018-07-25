@@ -1,5 +1,5 @@
 name: SkySpigot
 main: me.bsky.skycore.spigot.SkySpigot
-version: 0.0.0
+version: 1.0.0
 author: BrightSkyz
 api-version: 1.13

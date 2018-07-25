@@ -2,6 +2,7 @@
 mysql:
   host: 'localhost' # Database host (Default: localhost)
   port: 3306 # Database port (Default: 3306)
-  user: '' # Database username (Default: none)
+  user: 'root' # Database username (Default: root)
   pass: '' # Database password (Default: none)
-  name: 'skycore' # Database name (Default: skycore)
+  database: 'skycore' # Database name (Default: skycore)
+  max-pool-size: 5 # Maximum pool size (Default: 5)

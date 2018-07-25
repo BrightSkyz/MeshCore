@@ -24,9 +24,10 @@ jar {
 }
 
 repositories {
+    mavenCentral()
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots' }
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-    mavenCentral()
+    maven { url = 'https://src.me1312.net/maven' }
 }
 
 dependencies {
@@ -35,4 +36,5 @@ dependencies {
     compile group: 'com.zaxxer', name: 'HikariCP', version: '3.2.0'
     compile group: 'org.spigotmc', name: 'spigot-api', version: '1.13-R0.1-SNAPSHOT'
     compile group: 'net.md-5', name: 'bungeecord-api', version: '1.13-SNAPSHOT'
+    compile group: 'net.ME1312.SubServers',  name: 'SubServers.Bungee', version: '2.13a/pr4'
 }

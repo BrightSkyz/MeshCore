@@ -4,4 +4,5 @@
 /gradle
 /.gitattributes
 /gradlew
-/gradlew.bat
+/gradlew.*
+/SkyCore.iml
