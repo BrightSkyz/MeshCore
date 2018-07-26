@@ -2,13 +2,11 @@ package me.bsky.skycore.bungee;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import me.bsky.skycore.api.helpers.ServerHelpers;
 import me.bsky.skycore.bungee.commands.skyBungeeCommand;
 import me.bsky.skycore.bungee.events.postLoginEvent;
-import net.ME1312.SubServers.Bungee.Host.Host;
+import me.bsky.skycore.bungee.events.subapi.subAddHostEvent;
+import me.bsky.skycore.bungee.events.subapi.subStopEvent;
 import net.ME1312.SubServers.Bungee.Host.Server;
-import net.ME1312.SubServers.Bungee.Host.SubCreator;
-import net.ME1312.SubServers.Bungee.Library.Version.Version;
 import net.ME1312.SubServers.Bungee.SubAPI;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -23,9 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class SkyBungee extends Plugin {
 
@@ -78,7 +73,10 @@ public class SkyBungee extends Plugin {
 
         // Register the listeners
         getProxy().getPluginManager().registerListener(this, new postLoginEvent(this));
+        getProxy().getPluginManager().registerListener(this, new subAddHostEvent(this));
+        getProxy().getPluginManager().registerListener(this, new subStopEvent(this));
 
+        /*
         // Wait for a host to exist
         boolean hostsExist = false;
         while (!hostsExist) {
@@ -94,6 +92,7 @@ public class SkyBungee extends Plugin {
         Integer serverPort = ServerHelpers.getRandomUnusedPort(getSubAPI());
         // Create the server
         randomHost.getCreator().create("Lobby-1", randomHost.getCreator().getTemplate("Vanilla"), Version.fromString("1.13"), serverPort);
+         */
     }
 
     @Override
