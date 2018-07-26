@@ -92,8 +92,6 @@ public class SkyBungee extends Plugin {
         Host randomHost = hostsList.get(randomHostIndex);
         // Generate the random port for the server
         Integer serverPort = ServerHelpers.getRandomUnusedPort(getSubAPI());
-        // Add a lobby server
-        getSubAPI().addServer("Lobby-1", randomHost.getAddress(), serverPort, "Lobby", false, false);
         // Create the server
         randomHost.getCreator().create("Lobby-1", randomHost.getCreator().getTemplate("Vanilla"), Version.fromString("1.13"), serverPort);
     }
