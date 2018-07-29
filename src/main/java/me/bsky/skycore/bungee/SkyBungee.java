@@ -5,7 +5,8 @@ import com.zaxxer.hikari.HikariDataSource;
 import me.bsky.skycore.bungee.commands.skyBungeeCommand;
 import me.bsky.skycore.bungee.events.PostLogin;
 import me.bsky.skycore.bungee.events.subapi.SubAddHost;
-import me.bsky.skycore.bungee.events.subapi.SubStop;
+import me.bsky.skycore.bungee.events.subapi.SubStart;
+import me.bsky.skycore.bungee.events.subapi.SubStopped;
 import net.ME1312.SubServers.Bungee.Host.Server;
 import net.ME1312.SubServers.Bungee.SubAPI;
 import net.md_5.bungee.api.ChatColor;
@@ -74,7 +75,8 @@ public class SkyBungee extends Plugin {
         // Register the listeners
         getProxy().getPluginManager().registerListener(this, new PostLogin(this));
         getProxy().getPluginManager().registerListener(this, new SubAddHost(this));
-        getProxy().getPluginManager().registerListener(this, new SubStop(this));
+        //getProxy().getPluginManager().registerListener(this, new SubStopped(this));
+        getProxy().getPluginManager().registerListener(this, new SubStart(this));
 
         /*
         // Wait for a host to exist
