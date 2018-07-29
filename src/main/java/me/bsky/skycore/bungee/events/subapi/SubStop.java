@@ -5,11 +5,11 @@ import net.ME1312.SubServers.Bungee.Event.SubStopEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-public class subStopEvent implements Listener {
+public class SubStop implements Listener {
 
     private SkyBungee skyBungee;
 
-    public subStopEvent(SkyBungee skyBungee) {
+    public SubStop(SkyBungee skyBungee) {
         this.skyBungee = skyBungee;
     }
 

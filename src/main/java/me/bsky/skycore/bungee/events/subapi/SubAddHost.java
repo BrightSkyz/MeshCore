@@ -7,11 +7,11 @@ import net.ME1312.SubServers.Bungee.Library.Version.Version;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-public class subAddHostEvent implements Listener {
+public class SubAddHost implements Listener {
 
     private SkyBungee skyBungee;
 
-    public subAddHostEvent(SkyBungee skyBungee) {
+    public SubAddHost(SkyBungee skyBungee) {
         this.skyBungee = skyBungee;
     }
 

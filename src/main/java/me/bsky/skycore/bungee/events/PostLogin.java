@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class postLoginEvent implements Listener {
+public class PostLogin implements Listener {
 
     private SkyBungee skyBungee;
 
-    public postLoginEvent(SkyBungee skyBungee) {
+    public PostLogin(SkyBungee skyBungee) {
         this.skyBungee = skyBungee;
     }
 
